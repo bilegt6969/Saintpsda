@@ -56,7 +56,7 @@ const fetchWithRetry = async (url, options = {}, retries = 3, timeout = 15000) =
         try {
           errorBody = await response.text()
           console.error(`Error response body (${url}): ${errorBody.substring(0, 200)}...`)
-        } catch (e) {
+        } catch {
           console.error('Could not read error response body')
         }
         throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`)
@@ -70,7 +70,7 @@ const fetchWithRetry = async (url, options = {}, retries = 3, timeout = 15000) =
         try {
           // Try to parse as JSON anyway
           return JSON.parse(text)
-        } catch (e) {
+        } catch {
           console.error(`Response is not JSON: ${text.substring(0, 200)}...`)
           throw new Error('Response is not valid JSON')
         }
@@ -176,7 +176,7 @@ export async function GET(req) {
             console.log('Successfully fetched price data')
             break
           }
-        } catch (e) {
+        } catch  {
           console.log(`Failed with endpoint ${endpoint}, trying next...`)
         }
       }
@@ -208,7 +208,7 @@ export async function GET(req) {
             console.log('Successfully fetched recommended products')
             break
           }
-        } catch (e) {
+        } catch {
           console.log(`Failed with endpoint ${endpoint}, trying next...`)
         }
       }
