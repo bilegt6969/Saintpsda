@@ -1,14 +1,16 @@
 export async function GET() {
-  const productId = '1273697'; // Using the product ID from your example
+  const productId = '1273697';
   const goatUrl = `https://www.goat.com/web-api/v1/product_variants/buy_bar_data?productTemplateId=${productId}&countryCode=HK`;
   
   try {
-    // Minimal headers approach - no User-Agent
     const response = await fetch(goatUrl, {
       headers: {
         'Accept': 'application/json',
         'Origin': 'https://www.goat.com',
-        'Referer': 'https://www.goat.com/sneakers/product-template/' + productId
+        'Referer': 'https://www.goat.com/sneakers/product-template/' + productId,
+        // Making the request appear to come from GOAT's own website
+        'Host': 'www.goat.com',
+        'sec-fetch-site': 'same-origin'
       },
       redirect: 'follow',
     });
