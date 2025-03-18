@@ -192,7 +192,7 @@ export async function GET(req) {
     // Fetch recommended products with proper error handling
     let recommendedProducts = []
     try {
-      // Try multiple endpoints for recommended products
+      // Try multiple endpoints for recommended productsnb
       const recommendedEndpoints = [
         `https://www.goat.com/web-api/v1/product_templates/recommended?productTemplateId=${productId}&count=8`,
         `https://www.goat.com/api/v1/product_templates/recommended?productTemplateId=${productId}&count=8`,
