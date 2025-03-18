@@ -1,16 +1,23 @@
 export async function GET() {
-  const productId = '1273697';
+  const productId = '1087105'; // Using the product ID from your successful request
   const goatUrl = `https://www.goat.com/web-api/v1/product_variants/buy_bar_data?productTemplateId=${productId}&countryCode=HK`;
   
   try {
+    // First, establish a session with GOAT's website
+    const sessionResponse = await fetch('https://www.goat.com/', {
+      redirect: 'follow',
+    });
+    
+    // Extract cookies from the session response
+    const cookies = sessionResponse.headers.get('set-cookie');
+    
+    // Now make the API request with those cookies
     const response = await fetch(goatUrl, {
       headers: {
         'Accept': 'application/json',
         'Origin': 'https://www.goat.com',
-        'Referer': 'https://www.goat.com/sneakers/product-template/' + productId,
-        // Making the request appear to come from GOAT's own website
-        'Host': 'www.goat.com',
-        'sec-fetch-site': 'same-origin'
+        'Referer': `https://www.goat.com/sneakers/product-template/${productId}`,
+        'Cookie': cookies || '',
       },
       redirect: 'follow',
     });
