@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 export default function ProductPage() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         // Fetch data from the proxy route
@@ -34,7 +34,7 @@ export default function ProductPage() {
         };
 
         fetchData();
-    }, []);
+    }, [setError]); // Add setError to the dependency array
 
     if (loading) {
         return <div>Loading...</div>;
