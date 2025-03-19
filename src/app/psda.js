@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 export default function ProductPage() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         // Fetch data from the proxy route
@@ -22,7 +22,12 @@ export default function ProductPage() {
                 const result = await response.json();
                 setData(result);
             } catch (error) {
-                setError(error.message);
+                // Check if the error is an instance of the Error class
+                if (error instanceof Error) {
+                    setError(error.message);
+                } else {
+                    setError("An unknown error occurred");
+                }
             } finally {
                 setLoading(false);
             }

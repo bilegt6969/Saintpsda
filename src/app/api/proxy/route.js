@@ -19,11 +19,14 @@ export async function GET(request) {
     const apiUrl = `https://www.goat.com/web-api/v1/product_variants/buy_bar_data?productTemplateId=${productTemplateId}&countryCode=${countryCode}`;
 
     try {
-        // Fetch data from the Goat.com API
+        // Fetch data from the Goat.com API with browser-like headers
         const response = await fetch(apiUrl, {
             headers: {
-                "User-Agent": "Your-App-Name", // Add required headers
-                "Referer": "https://www.your-app.com", // Add required headers
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36", // Mimic a real browser
+                "Referer": "https://www.goat.com/", // Set the referer to Goat.com
+                "Origin": "https://www.goat.com", // Set the origin to Goat.com
+                "Accept": "application/json", // Accept JSON responses
+                "Accept-Language": "en-US,en;q=0.9", // Set accepted languages
             },
         });
 
