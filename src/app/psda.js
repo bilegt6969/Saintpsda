@@ -12,11 +12,11 @@ export default function ProductPage() {
         const fetchData = async () => {
             try {
                 const response = await fetch(
-                    "/api/proxy?productTemplateId=1273697&countryCode=HK"
+                    "/api/python"
                 );
 
                 if (!response.ok) {
-                    throw new Error(`Failed to fetch data: ${response.statusText}`);
+                    throw new Error(`Failed to fetch data 500: ${response.statusText}`);
                 }
 
                 const result = await response.json();
