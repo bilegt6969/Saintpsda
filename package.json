@@ -2,7 +2,7 @@
   "name": "gg",
   "version": "0.1.0",
   "private": true,
-  "type": "module", 
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,6 +13,7 @@
     "@vlourme/stockx-api": "^1.0.3",
     "next": "15.2.2",
     "puppeteer": "^24.4.0",
+    "puppeteer-core": "^24.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sneaks-api": "^1.2.3"
