@@ -34,7 +34,7 @@ export default function ProductPage() {
         };
 
         fetchData();
-    }, [setError]); // Add setError to the dependency array
+    }, []);
 
     if (loading) {
         return <div>Loading...</div>;
