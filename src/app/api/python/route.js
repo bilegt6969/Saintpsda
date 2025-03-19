@@ -3,12 +3,10 @@ import path from "path";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-// Get the current directory path
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export async function GET(req) {
-    // Resolve the correct path to j.py
+export async function GET() {  // Remove unused 'req' parameter
     const pythonScriptPath = path.resolve(__dirname, 'j.py');
     const pythonProcess = spawn("python3", [pythonScriptPath]);
 
