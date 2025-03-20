@@ -6,7 +6,7 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export async function GET() {  // Remove unused 'req' parameter
+export async function GET() {
     const pythonScriptPath = path.resolve(__dirname, 'j.py');
     const pythonProcess = spawn("python3", [pythonScriptPath]);
 
