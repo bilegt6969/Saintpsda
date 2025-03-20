@@ -13,8 +13,10 @@
     "@vlourme/stockx-api": "^1.0.3",
     "cfbypass": "^0.0.14",
     "next": "15.2.2",
+    "node-loader": "^2.1.0",
     "puppeteer": "^24.4.0",
     "puppeteer-core": "^24.4.0",
+    "puppeteer-real-browser": "^1.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sneaks-api": "^1.2.3"
@@ -22,12 +24,12 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.17.24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.2",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5.8.2"
   }
 }

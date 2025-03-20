@@ -1,19 +1,36 @@
-import CF from "cfbypass"; // Use ES module import
+import { connect } from "puppeteer-real-browser";
 
-export async function GET() { // Replace `req` with `_` since it's unused
+export async function GET() {
   try {
-    const cf = new CF(true); // Set to true if using Python 3
-
-    const data = await cf.request({
-      url: "https://www.goat.com/web-api/v1/product_variants/buy_bar_data?productTemplateId=603936&countryCode=HK",
-      options: {
-        method: "GET",
-      },
+    const { browser, page } = await connect({
+      headless: true,
+      args: [],
+      customConfig: {},
+      turnstile: true,
+      connectOption: {},
+      disableXvfb: false,
+      ignoreAllFlags: false,
     });
 
-    return Response.json(await data.json()); // Ensure the response is properly formatted
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    return Response.json({ error: "Failed to fetch data" }, { status: 500 });
+    await page.goto(
+      "https://www.goat.com/web-api/v1/product_variants/buy_bar_data?productTemplateId=603936&countryCode=HK"
+    );
+    const content = await page.content();
+
+    await browser.close();
+
+    return new Response(JSON.stringify({ content }), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 }
