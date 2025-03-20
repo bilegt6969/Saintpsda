@@ -10,10 +10,10 @@ try:
     res.raise_for_status()  # Raise an error for bad status codes
 
     # Print request headers (headers sent to GOAT)
-    print("Request Headers:", res.request.headers)
+    print(res.status_code)
 
     # Print response headers (headers received from GOAT)
-    print("Response Headers:", res.headers)
+    # print("Response Headers:", res.headers)
 
     sys.exit(0)
 except Exception as e:

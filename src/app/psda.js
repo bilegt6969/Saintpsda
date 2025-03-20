@@ -11,23 +11,16 @@ export default function ProductPage() {
         // Fetch data from the proxy route
         const fetchData = async () => {
             try {
-                const response = await fetch(
-                    "/api/python"
-                );
+                const response = await fetch("/api/python");
 
                 if (!response.ok) {
-                    throw new Error(`Failed to fetch data 500: ${response.statusText}`);
+                    throw new Error(`Failed to fetch data: ${response.statusText}`);
                 }
 
-                const result = await response.json();
+                 const result = await response.json();
                 setData(result);
             } catch (error) {
-                // Check if the error is an instance of the Error class
-                if (error instanceof Error) {
-                    setError(error.message);
-                } else {
-                    setError("An unknown error occurred");
-                }
+                setError(error.message);
             } finally {
                 setLoading(false);
             }
