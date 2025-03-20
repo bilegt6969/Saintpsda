@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@vlourme/stockx-api": "^1.0.3",
+    "cfbypass": "^0.0.14",
     "next": "15.2.2",
     "puppeteer": "^24.4.0",
     "puppeteer-core": "^24.4.0",

@@ -11,6 +11,9 @@ importers:
       '@vlourme/stockx-api':
         specifier: ^1.0.3
         version: 1.0.3
+      cfbypass:
+        specifier: ^0.0.14
+        version: 0.0.14
       next:
         specifier: 15.2.2
         version: 15.2.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -788,6 +791,9 @@ packages:
 
   caseless@0.12.0:
     resolution: {integrity: sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw==}
+
+  cfbypass@0.0.14:
+    resolution: {integrity: sha512-BOjdJj9iMhtrwAkz0tuK9zzJpp1LsMLt0hlarise2Zpp8KZG5miJgv9L+xdf9gx0qey3HPIUEWHkBzI5W6QLnw==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -1628,6 +1634,9 @@ packages:
   jiti@2.4.2:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
+
+  js-base64@3.7.7:
+    resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -3341,6 +3350,11 @@ snapshots:
 
   caseless@0.12.0: {}
 
+  cfbypass@0.0.14:
+    dependencies:
+      cheerio: 1.0.0
+      js-base64: 3.7.7
+
   chalk@4.1.2:
     dependencies:
       ansi-styles: 4.3.0
@@ -4393,6 +4407,8 @@ snapshots:
       set-function-name: 2.0.2
 
   jiti@2.4.2: {}
+
+  js-base64@3.7.7: {}
 
   js-tokens@4.0.0: {}
 
