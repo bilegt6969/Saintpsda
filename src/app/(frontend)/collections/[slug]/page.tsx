@@ -24,6 +24,14 @@ interface Item {
   value: string; // Product name
 }
 
+// --- Define PageProps Interface ---
+// This interface defines the expected props for a Next.js page component
+// in the App Router, including params and optional searchParams.
+interface PageProps {
+  params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
 // --- In-Memory Cache for Currency Rate ---
 interface HomeCache {
   mntRate: number | null;
@@ -63,9 +71,9 @@ const renderPrice = (priceDollarsUSD: number, mntRate: number | null): string =>
 
 // Basic text replacer (expand as needed)
 const replaceText = (text: string): string => {
-  // Example:
-  return text.replace(/™/g, '').replace(/®/g, '');
-  return text;
+  // Example: Remove trademark symbols
+  return text.replace(/™|®/g, '');
+  // The original code had a duplicate return, keeping only the first one.
 };
 
 // --- Skeleton Loading Component ---
@@ -110,7 +118,7 @@ const ProductCard = memo(({ item, priority, mntRate, isCurrencyLoading }: Produc
         <div className="w-full text-xs font-bold flex items-center p-4 border-t border-neutral-700 justify-between relative transition-colors duration-300 group-hover:border-neutral-500">
           <span className="truncate pr-2">{replaceText(item.value)}</span>
           <div
-            className={`bg-neutral-800 backdrop-brightness-90 border border-neutral-700 group-hover:bg-neutral-600 group-hover:border-neutral-500 py-2px-2 rounded-full whitespace-nowrap transition-all duration-300 ease-out min-w-[90px] text-center relative overflow-hidden ${
+            className={`bg-neutral-800 backdrop-brightness-90 border border-neutral-700 group-hover:bg-neutral-600 group-hover:border-neutral-500 py-1 px-2 rounded-full whitespace-nowrap transition-all duration-300 ease-out min-w-[90px] text-center relative overflow-hidden ${
               isLoadingPrice ? 'animate-pulse' : ''
             }`}
           >
@@ -139,8 +147,9 @@ ProductCard.displayName = 'ProductCard';
 
 // --- Main Page Component ---
 
-export default function CollectionPage({ params }: { params: { slug: string } }) {
-  const { slug: collectionSlug } = params;
+// Use the PageProps interface here
+export default function CollectionPage({ params }: PageProps) {
+  const { slug: collectionSlug } = params; // Destructure slug from params
   const [products, setProducts] = useState<Item[]>([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -195,6 +204,7 @@ export default function CollectionPage({ params }: { params: { slug: string } })
     }
 }, [mntRate]); // Dependency ensures cache comparison uses current state value
 
+
   // --- Fetch Products Function ---
   const fetchProducts = useCallback(
     async (pageNum: number) => {
@@ -228,7 +238,17 @@ export default function CollectionPage({ params }: { params: { slug: string } })
             lowest_price_dollars: product.price, // Assign price in DOLLARS directly
           },
         }));
-        setProducts((prev) => (pageNum === 1 ? newItems : [...prev, ...newItems]));
+
+        // Check for duplicate IDs before adding new items
+        setProducts((prev) => {
+            const existingIds = new Set(prev.map(p => p.data.id));
+            const uniqueNewItems = newItems.filter(item => !existingIds.has(item.data.id));
+            if (uniqueNewItems.length < newItems.length) {
+                console.warn(`Filtered out ${newItems.length - uniqueNewItems.length} duplicate product(s) from page ${pageNum}`);
+            }
+            return pageNum === 1 ? uniqueNewItems : [...prev, ...uniqueNewItems];
+        });
+
         setHasMore(data.hasMore);
         if (pageNum === 1) {
           // Only adjust initial load flag on the first page fetch
@@ -352,8 +372,7 @@ export default function CollectionPage({ params }: { params: { slug: string } })
         {/* Render Products (only after initial load) */}
         {!isInitialLoad &&
           products.map((item, index) => (
-            <ProductCard // Use product ID as key if it's unique across all loaded items for this collection.
-              // If IDs can repeat across pages, a composite key might be needed, but ID is usually best.
+            <ProductCard // Use product ID as key
               key={item.data.id}
               item={item}
               priority={index < 10} // Prioritize loading images for first ~10 items
@@ -416,4 +435,3 @@ export default function CollectionPage({ params }: { params: { slug: string } })
     </div>
   );
 }
-
